@@ -1,0 +1,7 @@
+div.carousel-inner{
+    --bg-carousel: rgb(229, 230, 229);
+    padding: 0%;
+    height: 35vw;
+    width: auto;
+    background-color: var(--bg-carousel);
+}

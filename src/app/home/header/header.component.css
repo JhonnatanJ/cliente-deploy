@@ -1,0 +1,22 @@
+header{
+    text-align: center;
+    align-items: center;  
+    background-color: white; 
+    margin: 0px;
+}
+
+input{
+    color: #0065BD;
+    border-color: #0065BD;
+    border-radius: 50px;
+}
+
+img.logo{
+    width: 100%;
+    height: auto;
+}
+
+img.carrito{
+    width: auto;
+    height: 2rem;
+}

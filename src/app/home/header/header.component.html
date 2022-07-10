@@ -1,0 +1,77 @@
+<header class="container-fluid row p-3 sticky-top">
+  <!-- ------------------------------------------------------- LOGO -->
+  <div class="col-3 p-0 col-md-2 px-sm-2">
+    <a routerLink="">    
+      <img src="/../assets/icon-Logo.png" alt="logo" class="logo">
+    </a>
+  </div>
+  <!-- ------------------------------------------------------- BUSQUEDA -->
+  <div class="col-7 col-md-8 ps-3">
+    <div class="row">
+      <div class="col">
+        <form (ngSubmit)="buscar()" autocomplete="off">
+          <input            
+            type="text"
+            name="termino"
+            class="form-control"
+            [(ngModel)]="termino"
+            placeholder="Busca aquí..."
+          />
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="hayError" class="alert alert-danger" role="alert">
+      No se encontró el libro {{ termino }}
+    </div>
+  </div>
+
+   <!-- ----------------------------------------------- RESULTADOS DE BUSQUEDA -->
+  <div *ngIf="libros.length > 0" class="row">
+    <div class="col">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>ISBN</td>
+                    <td>TITULO</td>
+                    <td>STOCK</td>
+                    <td>PRECIO</td>
+                    <td>GENERO</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let libro of libros; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{libro.isbn}}</td>
+                    <td>{{libro.titulo}}</td>
+                    <td>{{libro.stock}}</td>
+                    <td>{{libro.precioUnitario}}</td>
+                    <td *ngFor="let genero of libro.generos">
+                        {{genero.nombre}} 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+<!-- ----------------------------------------------------- CARRITO -->
+
+  <div class="col-2 col-md-1 p-0">
+    <a routerLink="compras">
+      <img src="/../assets/icon_empty.png" alt="carrito" class="carrito">
+    </a>
+  </div>
+<!-- ----------------------------------------------------- REDES -->
+  <div class="d-flex flex-column col-1 d-none d-md-flex">
+    <a href="https://www.facebook.com/libreriageomundo" target="_blank">
+      <img src="/../assets/icon_facebook_header.png" alt="facebook" width="25px">
+  </a>      
+  <a href="https://www.instagram.com/geomundolibreria/" target="_blank">
+      <img src="/../assets/icon_instagram_header.png" alt="instagram" width="25px" class="mt-2">
+  </a> 
+  </div>
+</header>

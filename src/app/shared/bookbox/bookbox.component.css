@@ -1,0 +1,32 @@
+div.col{
+    padding: 0%;
+    align-self: center;
+    justify-content: center;
+}
+
+div.row{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+div.card{
+    align-items: center;
+    padding-top: 3%;
+    max-height: 30rem;
+    min-width: 15rem;
+}
+
+div.card img{
+    width: 50%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    margin-bottom: 1%;
+}
+
+div.card-body {
+    border-top: 0.05em solid lightgray;
+}
+
+div.card-body{
+    font-size: calc(0.5rem + 0.7vw);
+}

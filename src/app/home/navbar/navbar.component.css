@@ -1,0 +1,21 @@
+nav{
+    --primario: #0065BD;
+    padding-left: 15%;
+    padding-right: 15%;
+    /* border-bottom: 1px solid var(--primario);     */
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.nav-tabs a.nav-link.active{
+    border-top-color: var(--primario) !important;
+    border-left-color: var(--primario) !important;
+    border-right-color: var(--primario) !important;
+    color: var(--primario);
+}
+
+nav a{
+    text-decoration: none;
+    color: var(--primario);
+    font-size: calc(0.4rem + 0.8vw);
+}
