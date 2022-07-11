@@ -2,23 +2,7 @@
 
 <h1>NOVEDADES</h1>
 
-<div class="d-flex flex-wrap row-cols-12 row-cols-xs-6 row-cols-md-3 row-cols-lg-4 align-items-between justify-content-center m-3">
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-</div>
+<app-bookbox [libros] = "novedades"></app-bookbox>
 
 <h1> RECOMENDACIONES </h1>
-<div class="d-flex flex-wrap row-cols-12 row-cols-xs-6 row-cols-md-4 align-items-between justify-content-center m-3">
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-  <app-bookbox></app-bookbox>
-</div>
+  <app-bookbox [libros] = "recomendados"></app-bookbox>

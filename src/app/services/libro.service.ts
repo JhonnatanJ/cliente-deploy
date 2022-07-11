@@ -19,4 +19,13 @@ export class LibroService {
     return this.http.get<Libro[]>(url);
 
   }
+
+  buscarNovedades(): Observable<Libro[]> {
+    const url = `${this.apiUrl}/novedades`;
+    return this.http.get<Libro[]>(url);
+  }
+  buscarRecomendados(): Observable<Libro[]> {
+    const url = `${this.apiUrl}/recomendados`;
+    return this.http.get<Libro[]>(url);
+  }
 }
