@@ -8,6 +8,7 @@ import { Autore, Editoriale, Libro } from 'src/app/interfaces/libro.interface';
 })
 export class BookboxComponent implements OnInit {
 
+  @Input() hayError: boolean = false;
   @Input() libros: Libro[] = [];
   autores: Autore[] = [];
   editoriales: Editoriale[] = [];

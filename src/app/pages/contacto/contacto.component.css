@@ -1,0 +1,16 @@
+h2{
+    text-align: center;
+    margin: 2%;
+}
+
+div.col{
+    padding: 2%;
+}
+
+div.redes a{
+    padding-left: 3%;
+}
+
+img.redes{
+    width: 3rem;
+}

@@ -1,10 +1,11 @@
-<div
-  class="d-flex flex-row flex-wrap mb-3"
->
-  <div *ngFor="let libro of libros" class="d-flex container-fluid col justify-content-center p-3 col-12 col-sm-6 col-md-4 col-lg-3">
+<div *ngIf="libros.length > 0" class="d-flex flex-row flex-wrap mb-3">
+  <div
+    *ngFor="let libro of libros"
+    class="d-flex container-fluid col justify-content-center p-3 col-12 col-sm-6 col-md-4 col-lg-3"
+  >
     <div class="card">
       <img
-        src="/../assets/books/{{libro.isbn}}.jpg"
+        src="/../assets/books/{{ libro.isbn }}.jpg"
         alt="libro"
         class="card-img-top imagen_libro"
       />
@@ -37,4 +38,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="hayError" class="alert alert-danger alert-dismissible fade show">
+  <h5>ERROR</h5>
+  No se encontraron libros  
 </div>

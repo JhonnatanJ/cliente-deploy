@@ -11,6 +11,7 @@ export class BodyComponent implements OnInit {
 
   novedades: Libro[] = [];
   recomendados: Libro[] = [];
+  hayError:boolean = false;
 
   constructor( private libroService: LibroService) { }
 
@@ -20,18 +21,27 @@ export class BodyComponent implements OnInit {
   }
 
   buscarNovedades(){
+    this.hayError=false;
     this.libroService.buscarNovedades()
-      .subscribe(novedades =>{
+      .subscribe((novedades) =>{
         this.novedades = novedades;
         console.log(novedades);
+      }, (err) =>{
+        this.hayError = true;
+        this.novedades = [];
       })
   }
 
   buscarRecomendados(){
+    this.hayError=false;
     this.libroService.buscarRecomendados()
-      .subscribe(recomendados =>{
+      .subscribe((recomendados) =>{
         this.recomendados = recomendados;
         console.log(recomendados);
+      },
+      (err)=>{
+        this.hayError = true;
+        this.recomendados=[];
       })
   }
 
