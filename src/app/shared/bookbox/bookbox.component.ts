@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Autore, Editoriale, Libro } from 'src/app/interfaces/libro.interface';
+import { Content } from '../../interfaces/libro.interface';
 
 @Component({
   selector: 'app-bookbox',
@@ -9,7 +10,8 @@ import { Autore, Editoriale, Libro } from 'src/app/interfaces/libro.interface';
 export class BookboxComponent implements OnInit {
 
   @Input() hayError: boolean = false;
-  @Input() libros: Libro[] = [];
+  @Input() libros!: Libro;
+  contenido: Content[] = [];
   autores: Autore[] = [];
   editoriales: Editoriale[] = [];
 

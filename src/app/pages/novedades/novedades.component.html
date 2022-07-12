@@ -1,1 +1,39 @@
-<p>novedades works!</p>
+<h1>NOVEDADES</h1>
+<app-bookbox [libros] = "libros" [hayError] = "hayError"></app-bookbox>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li *ngIf="pagina==0; else anterior " class="page-item disabled">
+            <a class="page-link">
+                Anterior
+            </a>
+        </li>
+        <ng-template #anterior>
+            <li class="page-item">
+                <a (click)="cambiarPagina(-1)" class="btn page-link">
+                    Anterior
+                </a>
+            </li>
+        </ng-template>
+        <li class="page-item disabled">
+            <a class="page-link">
+                página {{pagina+1}} de {{libros.totalPages}}
+            </a>    
+        </li>
+        
+        <li *ngIf="pagina+1 == libros.totalPages; else siguiente" class="page-item disabled">
+            <a class="page-link">
+                Siguiente
+            </a>
+        </li>
+
+        <ng-template #siguiente>
+            <li class="page-item">
+                <a (click)="cambiarPagina(1)" class="page-link">
+                    Siguiente
+                </a>
+            </li>
+        </ng-template>
+        
+
+    </ul>
+</nav>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LibroService } from '../../services/libro.service';
-import { Libro } from '../../interfaces/libro.interface';
+import { Content, Libro } from '../../interfaces/libro.interface';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-body',
@@ -9,8 +10,9 @@ import { Libro } from '../../interfaces/libro.interface';
 })
 export class BodyComponent implements OnInit {
 
-  novedades: Libro[] = [];
-  recomendados: Libro[] = [];
+  novedades!: Libro;
+  recomendados!: Libro;
+  conenido: Content[] = [];
   hayError:boolean = false;
 
   constructor( private libroService: LibroService) { }
@@ -28,7 +30,6 @@ export class BodyComponent implements OnInit {
         console.log(novedades);
       }, (err) =>{
         this.hayError = true;
-        this.novedades = [];
       })
   }
 
@@ -41,7 +42,6 @@ export class BodyComponent implements OnInit {
       },
       (err)=>{
         this.hayError = true;
-        this.recomendados=[];
       })
   }
 

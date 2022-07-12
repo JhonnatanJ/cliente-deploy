@@ -20,12 +20,18 @@ export class LibroService {
 
   }
 
-  buscarNovedades(): Observable<Libro[]> {
-    const url = `${this.apiUrl}/novedades`;
-    return this.http.get<Libro[]>(url);
+  buscarNovedades(): Observable<Libro> {
+    const url = `${this.apiUrl}/paged?page=0&size=8&sort=fechaRegistro,desc`;
+    return this.http.get<Libro>(url);
   }
-  buscarRecomendados(): Observable<Libro[]> {
-    const url = `${this.apiUrl}/recomendados`;
-    return this.http.get<Libro[]>(url);
+
+  buscarNovedadesPaged(pagina:number): Observable<Libro> {
+    const url= `${this.apiUrl}/paged?page=${pagina}&size=8&sort=fechaRegistro,desc`;
+    return this.http.get<Libro>(url);
+  }
+
+  buscarRecomendados(): Observable<Libro> {
+    const url = `${this.apiUrl}/paged?page=0&size=8&sort=fechaRegistro,asc`;
+    return this.http.get<Libro>(url);
   }
 }

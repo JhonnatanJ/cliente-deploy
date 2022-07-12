@@ -18,6 +18,7 @@ import { GenerosComponent } from './pages/generos/generos.component';
 import { BookboxComponent } from './shared/bookbox/bookbox.component';
 import { CarouselComponent } from './shared/carousel/carousel.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ import { CarouselComponent } from './shared/carousel/carousel.component';
     EmpresaComponent,
     GenerosComponent,
     BookboxComponent,
-    CarouselComponent
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
