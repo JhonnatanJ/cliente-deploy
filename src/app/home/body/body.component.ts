@@ -30,6 +30,7 @@ export class BodyComponent implements OnInit {
         console.log(novedades);
       }, (err) =>{
         this.hayError = true;
+        console.log("body: " + this.hayError);
       })
   }
 

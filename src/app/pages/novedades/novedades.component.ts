@@ -11,12 +11,11 @@ import { LibroService } from '../../services/libro.service';
 export class NovedadesComponent implements OnInit {
 
   pagina: number = 0;
-  libros!: Libro;
-  content: Content[] = [];  
+  libros!: Libro; 
   hayError:boolean = false;
 
 
-  constructor(private LibroService: LibroService) { }
+  constructor(private libroService: LibroService) { }
 
   ngOnInit(): void {
     this.PagedNovedades();
@@ -24,10 +23,9 @@ export class NovedadesComponent implements OnInit {
 
   PagedNovedades(){
     this.hayError=false;
-    this.LibroService.buscarNovedadesPaged(this.pagina)
+    this.libroService.buscarNovedadesPaged(this.pagina)
       .subscribe((libros) => {
         this.libros = libros;
-        console.log(libros);
       }, (err) => {
         this.hayError = true;
       })

@@ -1,7 +1,7 @@
 <h1>NOVEDADES</h1>
-<app-bookbox [libros] = "libros" [hayError] = "hayError"></app-bookbox>
+<app-bookbox [libros] = "libros" ></app-bookbox>
 <nav>
-    <ul class="pagination justify-content-center">
+    <ul *ngIf="libros.content.length > 0" class="pagination justify-content-center">
         <li *ngIf="pagina==0; else anterior " class="page-item disabled">
             <a class="page-link">
                 Anterior
@@ -33,7 +33,12 @@
                 </a>
             </li>
         </ng-template>
-        
-
     </ul>
 </nav>
+
+<!-- //-------------------------------------------------------------- ERROR -->
+
+<div *ngIf="hayError==true" class="alert alert-danger alert-dismissible">
+    <h5>ERROR</h5>
+    No se encontraron libros  
+  </div>

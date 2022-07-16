@@ -1,11 +1,22 @@
 *{
-    --primario: #0065BD;
+    --primario: #0065bd;
     --secundario: rgba(239, 239, 239, 0.788);
+    --on-hover: #0065bd70
 }
 
 div.card{
     background-color: var(--secundario);
     border-color: var(--secundario);
+    align-items: center;
+    justify-content: center;
+    padding: 0.5%;
+    max-width: 18rem;
+}
+
+div.card:hover{
+    background-color: var(--on-hover);
+    border-color: var(--on-hover);
+    color: white;
     align-items: center;
     justify-content: center;
     padding: 0.5%;

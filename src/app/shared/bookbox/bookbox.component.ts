@@ -9,7 +9,6 @@ import { Content } from '../../interfaces/libro.interface';
 })
 export class BookboxComponent implements OnInit {
 
-  @Input() hayError: boolean = false;
   @Input() libros!: Libro;
   contenido: Content[] = [];
   autores: Autore[] = [];
@@ -18,6 +17,7 @@ export class BookboxComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.libros.content)
   }
 
 }

@@ -2,7 +2,19 @@
 
 <h1>NOVEDADES</h1>
 
-<app-bookbox [libros] = "novedades" [hayError] = "hayError"></app-bookbox>
+<app-bookbox [libros] = "novedades"></app-bookbox>
+
+
+<div *ngIf="hayError==true" class="alert alert-danger alert-dismissible">
+  <h5>ERROR</h5>
+  No se encontraron libros  
+</div>
 
 <h1> RECOMENDACIONES </h1>
-  <app-bookbox [libros] = "recomendados" [hayError] = "hayError"></app-bookbox>
+  <app-bookbox [libros] = "recomendados"></app-bookbox>
+
+  
+<div *ngIf="hayError==true" class="alert alert-danger alert-dismissible">
+  <h5>ERROR</h5>
+  No se encontraron libros  
+</div>
