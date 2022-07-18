@@ -17,7 +17,6 @@ export class BookboxComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.libros.content)
   }
 
 }

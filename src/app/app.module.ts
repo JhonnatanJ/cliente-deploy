@@ -17,7 +17,7 @@ import { EmpresaComponent } from './pages/empresa/empresa.component';
 import { GenerosComponent } from './pages/generos/generos.component';
 import { BookboxComponent } from './shared/bookbox/bookbox.component';
 import { CarouselComponent } from './shared/carousel/carousel.component';
-import { ListadoComponent } from './shared/listado/listado.component';
+import { VerlibroComponent } from './pages/verlibro/verlibro.component';
 
 
 @NgModule({
@@ -35,7 +35,7 @@ import { ListadoComponent } from './shared/listado/listado.component';
     GenerosComponent,
     BookboxComponent,
     CarouselComponent,
-    ListadoComponent,
+    VerlibroComponent,
   ],
   imports: [
     BrowserModule,

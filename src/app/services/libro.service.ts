@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Genero, Libro } from '../interfaces/libro.interface';
+import { Genero, Libro, Content } from '../interfaces/libro.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,11 @@ export class LibroService {
 
     return this.http.get<Libro[]>(url);
 
+  }
+  // ---------------------------------------------- VER LIBRO
+  buscarLibroIsbn(isbn: string): Observable<Content>{
+    const url = `${this.apiLibrosUrl}/id/${isbn}`;
+    return this.http.get<Content>(url);
   }
 
   //----------------------------------------------- NOVEDADES

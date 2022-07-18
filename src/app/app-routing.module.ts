@@ -1,4 +1,4 @@
-import { NgModule} from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BodyComponent } from './home/body/body.component';
 import { CompraComponent } from './pages/compra/compra.component';
@@ -6,7 +6,7 @@ import { GenerosComponent } from './pages/generos/generos.component';
 import { NovedadesComponent } from './pages/novedades/novedades.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { EmpresaComponent } from './pages/empresa/empresa.component';
-import { ListadoComponent } from './shared/listado/listado.component';
+import { VerlibroComponent } from './pages/verlibro/verlibro.component';
 
 const routes: Routes = [
     {
@@ -33,6 +33,10 @@ const routes: Routes = [
     {
         path: 'empresa',
         component: EmpresaComponent
+    },
+    {
+        path: 'libro/:isbn',
+        component: VerlibroComponent
     },
     {
         path: '**',
