@@ -11,6 +11,8 @@ export class LibroService {
   private apiLibrosUrl = 'http://localhost:8088/geolib/libros';
 
   private apiGenerosUrl = 'http://localhost:8088/geolib/generos';
+  
+
   constructor(private http: HttpClient) { }
 
   buscarLibro( termino: string ): Observable<Libro[]> {
@@ -53,7 +55,8 @@ export class LibroService {
     const url = `${this.apiLibrosUrl}/paged/genero/${genero}?page=${pagina}&size=8`;
     console.log('servicio' +genero+pagina+ this.http.get<Libro>(url));
     return this.http.get<Libro>(url);
-
   } 
+
+  // ------------------------------------------------------ COMPRAR
 }
 

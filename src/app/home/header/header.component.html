@@ -60,11 +60,22 @@
 
 <!-- ----------------------------------------------------- CARRITO -->
 
-  <div class="col-2 col-md-1 p-0">
+  <div class="col-2 col-md-1 p-0" *ngIf="shop() ;else vacio">
     <a routerLink="compras">
-      <img src="/../assets/icon_empty.png" alt="carrito" class="carrito">
+      <img src="/../assets/icon_shop.png" alt="carrito" class="carrito">
     </a>
   </div>
+
+  <ng-template #vacio>
+    <div class="col-2 col-md-1 p-0">
+      <a routerLink="compras">
+        <img src="/../assets/icon_empty.png" alt="carrito" class="carrito">
+      </a>
+    </div>
+  </ng-template>
+  
+  
+  
 <!-- ----------------------------------------------------- REDES -->
   <div class="d-flex flex-column col-1 d-none d-md-flex">
     <a href="https://www.facebook.com/libreriageomundo" target="_blank">

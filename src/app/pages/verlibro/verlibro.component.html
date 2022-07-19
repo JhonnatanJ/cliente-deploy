@@ -58,7 +58,7 @@
       class="botones w-100 text-center"
       *ngIf="libro.stock > 0; else bloqueado"
     >
-      <button class="btn">
+      <button class="btn" (click)="agregarCompra()">
         <img
           src="/../assets/icon_empty_white.png"
           alt="carrito de compra"

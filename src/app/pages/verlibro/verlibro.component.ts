@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LibroService } from 'src/app/services/libro.service';
 import { switchMap, tap  } from "rxjs/operators";
 import { Content} from '../../interfaces/libro.interface';
+import { CompraService } from '../../services/compra.service';
 
 @Component({
   selector: 'app-verlibro',
@@ -13,10 +14,10 @@ export class VerlibroComponent implements OnInit {
 
   libro!: Content;
 
-
   constructor(
       private activatedRoute: ActivatedRoute,
-      private libroService: LibroService
+      private libroService: LibroService,
+      private compraService: CompraService
       ) { }
 
   ngOnInit(): void {
@@ -24,23 +25,14 @@ export class VerlibroComponent implements OnInit {
     this.activatedRoute.params
       .pipe(
         switchMap(({isbn}) => this.libroService.buscarLibroIsbn(isbn)),
-        tap(console.log)
       )
       .subscribe(libro =>{
         this.libro = libro
       });
-    
-    
-    
-    // this.activatedRoute.params
-    //   .subscribe(({isbn}) =>{
-    //     console.log(isbn);
-
-    //     this.libroService.buscarLibroIsbn(isbn)
-    //       .subscribe(libro => {
-    //         console.log(libro);
-    //       });
-    //   })
   }
+
+  agregarCompra(){
+      this.compraService.agregarCompra(this.libro.isbn);
+    }
 
 }
