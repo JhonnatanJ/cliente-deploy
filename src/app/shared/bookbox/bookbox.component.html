@@ -3,7 +3,14 @@
     *ngFor="let libro of libros.content"
     class="d-flex container-fluid col justify-content-center p-3 col-12 col-sm-6 col-md-4 col-lg-3"
   >
-    <div class="card">
+    <div class="card position-relative">
+      <!-- <div class="position-absolute estado" *ngIf="libro.stock>0;else agotado">
+        <p>Disponible</p>
+      </div> -->
+        <div class="position-absolute estado" *ngIf="libro.stock<1">
+          <p>Agotado</p>
+        </div>
+      
       <a href="/libro/{{ libro.isbn }}" class="text-center">
         <img
           src="/../assets/books/{{ libro.isbn }}.jpg"
@@ -32,9 +39,15 @@
             <p>{{ libro.editoriales[0].nombre }}</p>
           </div>
           <div class="col">
-            <button class="btn">
+            <button class="btn" (click)="agregarCompra(libro.isbn)" *ngIf="libro.stock>0;else bloqueado">
               <img src="/../assets/icon_empty.png" alt="comprar" />
             </button>
+
+            <ng-template #bloqueado>
+              <button class="btn" disabled>
+                <img src="/../assets/icon_empty.png" alt="comprar" />
+              </button>
+            </ng-template>
           </div>
         </div>
       </div>

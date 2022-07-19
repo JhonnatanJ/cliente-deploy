@@ -29,12 +29,23 @@ div.card img{
     padding-bottom: 2%;
 }
 
+div.estado{
+    top: 2%;
+    left: 2%;
+    background-color: var(--secundario);
+    color:var(--primario);
+    border-left: 1px solid var(--on-hover);
+    border-top: 1px solid var(--on-hover);
+    border-bottom: 1px solid var(--on-hover);
+    padding: 0.7%;
+}
+
 .col{
     padding: 0%;
 }
 
 div.card-body{
-    border-top: solid 1px lightgray;
+    border-top: solid 1px var(--secundario);
     text-align: center;
 }
 
