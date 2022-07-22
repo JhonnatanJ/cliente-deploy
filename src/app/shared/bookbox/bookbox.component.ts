@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Autore, Editoriale, Libro } from 'src/app/interfaces/libro.interface';
-import { Content } from '../../interfaces/libro.interface';
+import { Libro } from 'src/app/interfaces/libro.interface';
+import { CompraService } from '../../services/compra.service';
 
 @Component({
   selector: 'app-bookbox',
@@ -10,14 +10,15 @@ import { Content } from '../../interfaces/libro.interface';
 export class BookboxComponent implements OnInit {
 
   @Input() libros!: Libro;
-  contenido: Content[] = [];
-  autores: Autore[] = [];
-  editoriales: Editoriale[] = [];
 
-  constructor() { }
+  constructor(
+    private compraService: CompraService
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.libros.content)
   }
 
+  agregarCompra(isbn: string){
+    this.compraService.agregarCompra(isbn);
+  }
 }

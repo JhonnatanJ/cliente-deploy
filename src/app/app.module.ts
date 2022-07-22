@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './home/header/header.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BodyComponent } from './home/body/body.component';
-import { FormsModule } from '@angular/forms';
 import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 import { CompraComponent } from './pages/compra/compra.component';
 import { NavbarComponent } from './home/navbar/navbar.component';
@@ -17,7 +17,7 @@ import { EmpresaComponent } from './pages/empresa/empresa.component';
 import { GenerosComponent } from './pages/generos/generos.component';
 import { BookboxComponent } from './shared/bookbox/bookbox.component';
 import { CarouselComponent } from './shared/carousel/carousel.component';
-import { ListadoComponent } from './shared/listado/listado.component';
+import { VerlibroComponent } from './pages/verlibro/verlibro.component';
 
 
 @NgModule({
@@ -35,13 +35,14 @@ import { ListadoComponent } from './shared/listado/listado.component';
     GenerosComponent,
     BookboxComponent,
     CarouselComponent,
-    ListadoComponent,
+    VerlibroComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
     
   ],
   providers: [],

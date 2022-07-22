@@ -27,7 +27,6 @@ export class BodyComponent implements OnInit {
     this.libroService.buscarNovedades()
       .subscribe((novedades) =>{
         this.novedades = novedades;
-        console.log(novedades);
       }, (err) =>{
         this.hayError = true;
         console.log("body: " + this.hayError);
@@ -39,7 +38,6 @@ export class BodyComponent implements OnInit {
     this.libroService.buscarRecomendados()
       .subscribe((recomendados) =>{
         this.recomendados = recomendados;
-        console.log(recomendados);
       },
       (err)=>{
         this.hayError = true;

@@ -1,1 +1,95 @@
-<p>compra works!</p>
+<h1 class="text-center">CARRITO DE COMPRAS</h1>
+<div
+  *ngIf="this.libros.length > 0; else vacio"
+  class="table-responsive-md m-4 p-4"
+>
+  <div *ngIf="this.paso1Completo == false; else paso2">
+    <h2 class="text-center">LISTA DE LIBROS</h2>
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Articulo</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let libro of libros; let indice = index">
+          <td>
+            <img
+              src="/../assets/books/{{ libro.isbn }}.jpg"
+              alt="portada"
+              width="10%"
+              class="img-fluid img-thumbnile me-3"
+            />
+            <strong>{{ libro.titulo }}</strong> de {{ libro.autores[0].nombre }}
+          </td>
+          <td>
+            <input
+              type="number"
+              name="cantidad"
+              min="1"
+              max="{{ libro.stock }}"
+              value="1"
+              onkeydown="return false"
+              [ngModel]="cantidad[indice]"
+              (ngModelChange)="recalcular($event, indice)"
+              required
+            />
+          </td>
+          <td>${{ libro.precioUnitario.toFixed(2) }}</td>
+          <td>${{ this.subtotal[indice].toFixed(2) }}</td>
+          <td>
+            <button class="btn delete" (click)="borrar(indice)">
+              <img src="/../assets/icon_empty.png" alt="borrar" width="25rem" />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot class="table-light">
+        <tr>
+          <td></td>
+          <td></td>
+          <td><strong>Total:</strong></td>
+          <td>
+            <strong>${{ this.total.toFixed(2) }}</strong>
+          </td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="d-flex flex-row flex-wrap text-center">
+      <div class="col-6">
+        <button class="btn pasos" disabled>Anterior</button>
+      </div>
+      <div class="col-6">
+        <button class="btn pasos" (click)="compraAceptada()">
+          Continuar Mi Compra
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #paso2>
+    <div *ngIf="paso1Completo == true && paso2Completo == false"></div>
+    <h2 class="text-center">DATOS DE CLIENTE</h2>
+    <div class="d-flex flex-row flex-wrap text-center">
+        <div class="col-6">
+          <button class="btn pasos" (click)="mostrarLibros()">Lista de Libros</button>
+        </div>
+        <div class="col-6">
+          <button class="btn pasos" (click)="compraAceptada()">
+            Continuar Mi Compra
+          </button>
+        </div>
+      </div>
+  </ng-template>
+  
+
+</div>
+
+<ng-template #vacio>
+  <h1>Carrito Vacío</h1>
+</ng-template>

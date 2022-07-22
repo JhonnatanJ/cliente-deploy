@@ -1,0 +1,83 @@
+<div class="d-flex flex-row flex-wrap p-4 justify-content-evenly">
+  <div
+    class="d-flex col-md-12 col-lg-6 text-center align-items-center justify-content-center imagen"
+  >
+    <img
+      src="/../assets/books/{{ libro.isbn }}.jpg"
+      alt="portada-libro"
+      class="img-fluid"
+    />
+  </div>
+  <div class=" d-flex flex-column flex-wrapcol-12 col-lg-6 p-3 justify-content-center ">
+    <div
+      class="d-flex flex-row flex-wrap info justify-content-center justify-content-lg-start"
+    >
+      <h5 class="col-auto me-2 me-lg-0 col-lg-3"><strong>Titulo:</strong></h5>
+      <h5 class="col-auto">
+        <strong>{{ libro.titulo }}</strong>
+      </h5>
+      <div class="w-100"></div>
+      <h5 class="col-auto me-2 me-lg-0 col-lg-3"><strong>Autor:</strong></h5>
+      <h5 class="col-auto" *ngFor="let autor of libro.autores">
+        {{ autor.nombre }}
+      </h5>
+      <div class="w-100"></div>
+      <h5 class="col-auto me-2 me-lg-0 col-lg-3"><strong>ISBN:</strong></h5>
+      <h5 class="col-auto">{{ libro.isbn }}</h5>
+      <div class="w-100"></div>
+      <h5 class="col-auto me-2 me-lg-0 col-lg-3">
+        <strong>Editorial:</strong>
+      </h5>
+      <h5 class="col-auto" *ngFor="let editorial of libro.editoriales">
+        {{ editorial.nombre }}
+      </h5>
+      <div class="w-100"></div>
+      <h5 class="col-auto me-2 me-lg-0 col-lg-3"><strong>Género:</strong></h5>
+      <h5 class="col-auto" *ngFor="let genero of libro.generos">
+        {{ genero.nombre }}
+      </h5>
+      <div class="w-100"></div>
+      <h5 class="col-auto me-2 me-lg-0 col-lg-3"><strong>Estado:</strong></h5>
+      <h5 class="col-auto" *ngIf="libro.stock > 0; else agotado">Disponible</h5>
+      <ng-template #agotado>
+        <h5 class="col-auto">Agotado</h5>
+      </ng-template>
+      <div class="w-100"></div>
+      <h5 class="col-auto me-2 me-lg-0 col-lg-3"><strong>Precio:</strong></h5>
+      <h5 class="col-auto">
+        <strong>${{ libro.precioUnitario.toFixed(2) }}</strong>
+      </h5>
+    </div>
+    <div class="d-flex flex-wrap desc">
+      <h5 class="col-auto w-100"><strong>Descripción:</strong></h5>
+      <p>
+        {{ libro.descripcion }}
+      </p>
+    </div>
+    <div
+      class="botones w-100 text-center"
+      *ngIf="libro.stock > 0; else bloqueado"
+    >
+      <button class="btn" (click)="agregarCompra()">
+        <img
+          src="/../assets/icon_empty_white.png"
+          alt="carrito de compra"
+          width="14%"
+        />
+        Agregar al carrito
+      </button>
+    </div>
+    <ng-template #bloqueado>
+      <div class="botones w-100 text-center">
+        <button class="btn" disabled>
+          <img
+            src="/../assets/icon_empty_white.png"
+            alt="carrito de compra"
+            width="14%"
+          />
+          Agregar al carrito
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>

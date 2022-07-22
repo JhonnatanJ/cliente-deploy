@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LibroService } from 'src/app/services/libro.service';
 import { Libro, Genero } from '../../interfaces/libro.interface';
+import { CompraService } from '../../services/compra.service';
 
 @Component({
   selector: 'app-header',
@@ -14,9 +15,13 @@ export class HeaderComponent implements OnInit {
   libros: Libro[] = [];
   generos: Genero[] = [];
 
-  constructor(private libroService: LibroService) { }
+  constructor(
+    private libroService: LibroService,
+    public compraService: CompraService
+    ) { }
 
   ngOnInit(): void {
+
   }
 
   buscar(){    
@@ -26,13 +31,28 @@ export class HeaderComponent implements OnInit {
     this.libroService.buscarLibro(this.termino)
       .subscribe((libros) => {
         this.libros = libros;  
-        console.log(libros);
 
       }, (err) => {
           this.hayError = true;
           this.libros = [];
       })
-
   }
 
+  shop(): boolean{
+    try{
+      let listaCompras = JSON.parse(sessionStorage.getItem("listaCompra")!);
+      if(listaCompras.length > 0){
+        return true;
+        
+      }
+      else{
+        return false
+      }
+    }
+    catch{
+      return false;
+      
+    }
+    
+  }
 }
