@@ -42,12 +42,10 @@ export class HeaderComponent implements OnInit {
     try{
       let listaCompras = JSON.parse(sessionStorage.getItem("listaCompra")!);
       if(listaCompras.length > 0){
-        console.log(true);
         return true;
         
       }
       else{
-        console.log(false);
         return false
       }
     }

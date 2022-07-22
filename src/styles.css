@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    --primario: #0065bd;
+    --secundario: rgba(239, 239, 239, 0.788);
+    --on-hover: #0065bd70;
+    --textoligth: white;
+}
