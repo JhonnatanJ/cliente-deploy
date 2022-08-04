@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class CompraComponent implements OnInit {
   //VARIABLES PARA CONTROL DE CIUDADES CAPITALES
-  capitales: string[] = ['Riobamba', 'Quito', 'Guayaquil', 'Cuenca', 'Ambato', 'Esmeraldas', 'Manabí', 'Los Ríos'];
+  capitales: string[] = ['Quito', 'Guayaquil', 'Cuenca', 'Ambato', 'Esmeraldas', 'Manabí', 'Los Ríos'];
   ciudad: string = '';
   //VARIABLES PARA CONTROL DE VISTAS
   paso1Completo: boolean = false;
@@ -52,9 +52,9 @@ export class CompraComponent implements OnInit {
   }
 //-------------------------------------------------- FUNCIONES PARA COMPRAS - PASO 1
   agregarCompras(){
+    let i: number = 0;
     this.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")!);
-    this.listaCompra.forEach(isbn => {
-      let i: number = 0;
+    this.listaCompra.forEach(isbn => {     
       this.libroService.buscarLibroIsbn(isbn)
         .subscribe(libro =>{          
           this.libros.push(libro);
@@ -63,6 +63,8 @@ export class CompraComponent implements OnInit {
             sessionStorage.setItem("cantidad",JSON.stringify(this.cantidad));
           }          
           this.subtotal.push(this.cantidad[i]*libro.precioUnitario); 
+          console.log(i)
+          console.log(this.subtotal)
           this.total = this.sumar();   
           i++; 
         })
@@ -73,6 +75,7 @@ export class CompraComponent implements OnInit {
     this.cantidad[indice] = cantidad;
     sessionStorage.setItem("cantidad",JSON.stringify(this.cantidad));
     this.subtotal[indice] = this.libros[indice].precioUnitario * this.cantidad[indice];
+    console.log(this.subtotal)
     this.sumar();
   }
 
@@ -99,7 +102,7 @@ export class CompraComponent implements OnInit {
 
   enviarDatos(){
     let mensaje: string = "";
-    mensaje = "☻ CLIENTE"+"\n" + "Nombre:" + this.datosCliente.nombres+" "+this.datosCliente.apellidos+ "\n"+ 
+    mensaje = "♢CLIENTE"+"\n" + "Nombre:" + this.datosCliente.nombres+" "+this.datosCliente.apellidos+ "\n"+ 
                     "Cedula:"+ this.datosCliente.cedula+ "\n"+ "Celular:"+ this.datosCliente.celular+ "\n\n"+
                     "➸ENVIO"+"\n" + "Ciudad:"+this.datosCliente.ciudad+ "\n"+ "Dirección:"+ this.datosCliente.direccion+ "\n\n"+
                     "▤ LIBROS"+"\n";
@@ -116,7 +119,7 @@ export class CompraComponent implements OnInit {
        mensaje += "\t"+"$$$   TOTAL: $" + this.total.toFixed(2);
     }   
     let urlMensaje = encodeURIComponent(mensaje);
-    let url = 'https://wa.me/593995471098?text='+urlMensaje;
+    let url = 'https://wa.me/593985318085?text='+urlMensaje;
     window.open(url, '_blank');
   }
 
@@ -142,12 +145,17 @@ export class CompraComponent implements OnInit {
   calcularEnvio(){
     if(this.formEnvio.get('ciudad')?.value != ''){
       this.totalEnvio = this.total;
-      if(this.capitales.includes(this.formEnvio.get('ciudad')?.value)){
-        this.totalEnvio = this.totalEnvio + 4.50;
+      if(this.formEnvio.get('ciudad')?.value == 'Riobamba'){
+        this.totalEnvio = this.totalEnvio + 2.00;
       }
       else{
-        this.totalEnvio = this.totalEnvio + 5;
-      }
+        if(this.capitales.includes(this.formEnvio.get('ciudad')?.value)){
+          this.totalEnvio = this.totalEnvio + 4.50;
+        }
+        else{
+          this.totalEnvio = this.totalEnvio + 5;
+        }
+    }
     }
     else{
       this.totalEnvio = this.total;
