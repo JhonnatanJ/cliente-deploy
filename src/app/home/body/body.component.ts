@@ -43,5 +43,4 @@ export class BodyComponent implements OnInit {
         this.hayError = true;
       })
   }
-
 }

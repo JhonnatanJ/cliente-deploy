@@ -2,6 +2,10 @@
 *{
     --primario: #0065bd;
     --secundario: rgba(239, 239, 239, 0.788);
+    --informacion: #a9cff0; 
     --on-hover: #0065bd70;
+    --bordeinput: rgba(190, 190, 190, 0.789);
     --textoligth: white;
+    --textodark: rgba(141, 141, 141, 0.864);
+    --texto-error: rgb(219, 84, 84);
 }
