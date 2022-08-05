@@ -33,7 +33,6 @@
               min="1"
               max="{{ libro.stock }}"
               value="1"
-              onkeydown="return false"
               [ngModel]="cantidad[indice]"
               (ngModelChange)="recalcular($event, indice)"
               required
@@ -65,9 +64,10 @@
         <button class="btn pasos" disabled>Anterior</button>
       </div>
       <div class="col-6">
-        <button class="btn pasos" (click)="compraAceptada()">
-          Continuar Mi Compra
+        <button [disabled]="!this.inputCantidad" class="btn pasos" (click)="compraAceptada()">
+          Continuar Compra
         </button>
+        <p *ngIf="!this.inputCantidad" class="error-msg">*Cantidad de libro no permitida</p>
       </div>
     </div>
   </div>
@@ -336,7 +336,7 @@
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
         >
-          Continuar Mi Compra
+          Continuar Compra
         </button>
         <div
           *ngIf="this.formCliente.invalid || this.formEnvio.invalid"
@@ -379,9 +379,10 @@
                         {{ this.datosCliente.apellidos }}
                       </p>
                       <p class="text-start mb-1">
-                        <strong>Cédula: </strong>{{ this.datosCliente.cedula
-                        }}<strong class="ms-5">Celular: </strong
-                        >{{ this.datosCliente.celular }}
+                        <strong>Cédula: </strong>{{ this.datosCliente.cedula }}
+                      </p>
+                      <p class="text-start mb-1">
+                        <strong>Celular: </strong>{{ this.datosCliente.celular }}
                       </p>
                       <p class="text-start mb-1">
                         <strong>Ciudad: </strong>{{ this.datosCliente.ciudad }}
@@ -450,7 +451,7 @@
               >
                 Cerrar
               </button>
-              <button (click)="enviarDatos()" type="button" class="btn btn-primary">Finalizar Mi Compra</button>
+              <button (click)="enviarDatos()" type="button" class="btn btn-primary">Finalizar Compra</button>
             </div>
           </div>
         </div>

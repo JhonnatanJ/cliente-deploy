@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LibroService } from '../../services/libro.service';
 import { ClienteVenta, Content } from '../../interfaces/libro.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-compra',
@@ -26,7 +27,10 @@ export class CompraComponent implements OnInit {
   subtotal: number[] = [];
   total: number = 0;
   totalEnvio: number = 0;
+
  //VARIABLES PARA FORMULARIO
+  inputCantidad: boolean = true;
+
   datosCliente: ClienteVenta = {nombres:"", apellidos :"" ,cedula:"", celular:"", ciudad :"", direccion:""};
   datos: string[] = [];
   formCliente = new FormGroup({});
@@ -63,8 +67,6 @@ export class CompraComponent implements OnInit {
             sessionStorage.setItem("cantidad",JSON.stringify(this.cantidad));
           }          
           this.subtotal.push(this.cantidad[i]*libro.precioUnitario); 
-          console.log(i)
-          console.log(this.subtotal)
           this.total = this.sumar();   
           i++; 
         })
@@ -72,11 +74,17 @@ export class CompraComponent implements OnInit {
   }
 
   recalcular(cantidad: number, indice: number){
-    this.cantidad[indice] = cantidad;
+    if(cantidad < 1 || cantidad > this.libros[indice].stock || cantidad == null){
+      this.inputCantidad = false;
+    }
+    else{
+      this.inputCantidad = true;
+      this.cantidad[indice] = cantidad;
     sessionStorage.setItem("cantidad",JSON.stringify(this.cantidad));
     this.subtotal[indice] = this.libros[indice].precioUnitario * this.cantidad[indice];
     console.log(this.subtotal)
     this.sumar();
+    }    
   }
 
   sumar():number{    
