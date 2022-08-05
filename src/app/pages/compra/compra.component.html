@@ -18,13 +18,19 @@
       <tbody>
         <tr *ngFor="let libro of libros; let indice = index">
           <td>
-            <img
-              src="{{ libro.imagen.imagenUrl }}"
-              alt="portada"
-              width="10%"
-              class="img-fluid img-thumbnile me-3"
-            />
-            <strong>{{ libro.titulo }}</strong> de {{ libro.autores[0].nombre }}
+            <div class="d-flex flex-row flex-wrap justify-content-start align-items-center">
+              <div class="col-auto">
+                <img
+                  src="{{ libro.imagen.imagenUrl }}"
+                  alt="portada"
+                  class="img-thumbnile img-resumen me-3"
+                />
+              </div>
+              <div class="col text-start">
+                <strong>{{ libro.titulo }}</strong> de
+                {{ libro.autores[0].nombre }}
+              </div>
+            </div>
           </td>
           <td>
             <input
@@ -64,10 +70,16 @@
         <button class="btn pasos" disabled>Anterior</button>
       </div>
       <div class="col-6">
-        <button [disabled]="!this.inputCantidad" class="btn pasos" (click)="compraAceptada()">
+        <button
+          [disabled]="!this.inputCantidad"
+          class="btn pasos"
+          (click)="compraAceptada()"
+        >
           Continuar Compra
         </button>
-        <p *ngIf="!this.inputCantidad" class="error-msg">*Cantidad de libro no permitida</p>
+        <p *ngIf="!this.inputCantidad" class="error-msg">
+          *Cantidad de libro no permitida
+        </p>
       </div>
     </div>
   </div>
@@ -382,7 +394,8 @@
                         <strong>Cédula: </strong>{{ this.datosCliente.cedula }}
                       </p>
                       <p class="text-start mb-1">
-                        <strong>Celular: </strong>{{ this.datosCliente.celular }}
+                        <strong>Celular: </strong
+                        >{{ this.datosCliente.celular }}
                       </p>
                       <p class="text-start mb-1">
                         <strong>Ciudad: </strong>{{ this.datosCliente.ciudad }}
@@ -407,13 +420,15 @@
                     />
                   </div>
                   <div class="col-auto">
-                    <p class="text-resumen m-0">{{ libro.titulo }}</p>                    
+                    <p class="text-resumen m-0">{{ libro.titulo }}</p>
                     <p class="text-start m-0">{{ libro.autores[0].nombre }}</p>
                     <p class="text-start m-0">
                       Cantidad: {{ this.cantidad[i] }}
                     </p>
                     <p class="text-start m-0 text-precio">
-                      ${{ (libro.precioUnitario*this.cantidad[i]).toFixed(2) }}
+                      ${{
+                        (libro.precioUnitario * this.cantidad[i]).toFixed(2)
+                      }}
                     </p>
                   </div>
                 </div>
@@ -438,7 +453,7 @@
                     Al finaliza la compra será redirigido al servicio de
                     mensajería Whatsapp, en el cual se envirán los datos de su
                     compra mediante un mensaje, y se le comunicará el proceso de
-                    pago. <br><strong>!GRACIAS POR SU COMPRA¡</strong>
+                    pago. <br /><strong>!GRACIAS POR SU COMPRA¡</strong>
                   </p>
                 </div>
               </div>
@@ -451,7 +466,13 @@
               >
                 Cerrar
               </button>
-              <button (click)="enviarDatos()" type="button" class="btn btn-primary">Finalizar Compra</button>
+              <button
+                (click)="enviarDatos()"
+                type="button"
+                class="btn btn-primary"
+              >
+                Finalizar Compra
+              </button>
             </div>
           </div>
         </div>

@@ -11,8 +11,10 @@ import { empty } from 'rxjs';
 })
 export class CompraComponent implements OnInit {
   //VARIABLES PARA CONTROL DE CIUDADES CAPITALES
-  capitales: string[] = ['Quito', 'Guayaquil', 'Cuenca', 'Ambato', 'Esmeraldas', 'Manabí', 'Los Ríos'];
-  ciudad: string = '';
+  capitales: string[] = ['Quito', 'Guayaquil', 'Cuenca', 'Ambato', 'Guaranda', 'Azogues', 
+                         'Tulcán', 'Tulcan', 'Latacunga', 'Machala', 'Esmeraldas', 'Guayaquil', 
+                         'Ibarra', 'Loja', 'Babahoyo', 'Portoviejo', 'Macas', 'Tena', 'Francisco de Orellana',
+                         'Puyo', 'Santa Elena', 'Santo Domingo', 'Nueva Loja', 'Ambato', 'Zamora'];
   //VARIABLES PARA CONTROL DE VISTAS
   paso1Completo: boolean = false;
   paso2Completo: boolean = false;
@@ -122,7 +124,7 @@ export class CompraComponent implements OnInit {
       i +=1;
     }
     if(this.envio){
-      mensaje += "\d"+"$$$   TOTAL+ENVIO: $" + this.totalEnvio.toFixed(2);
+      mensaje += "\t"+"$$$   TOTAL+ENVIO: $" + this.totalEnvio.toFixed(2);
     }else{
        mensaje += "\t"+"$$$   TOTAL: $" + this.total.toFixed(2);
     }   
@@ -152,12 +154,14 @@ export class CompraComponent implements OnInit {
 
   calcularEnvio(){
     if(this.formEnvio.get('ciudad')?.value != ''){
-      this.totalEnvio = this.total;
-      if(this.formEnvio.get('ciudad')?.value == 'Riobamba'){
+      this.totalEnvio = this.total;     
+      let auxCiudad = this.capitalizada(this.formEnvio.get('ciudad')?.value);
+
+      if(auxCiudad == 'Riobamba'){
         this.totalEnvio = this.totalEnvio + 2.00;
       }
       else{
-        if(this.capitales.includes(this.formEnvio.get('ciudad')?.value)){
+        if(this.capitales.includes(auxCiudad)){
           this.totalEnvio = this.totalEnvio + 4.50;
         }
         else{
@@ -169,6 +173,17 @@ export class CompraComponent implements OnInit {
       this.totalEnvio = this.total;
     }
   }
+
+  capitalizada = (texto: string) =>{
+
+    let palabras = [];
+ 
+    for(let palabra of texto.split(" ")){
+     palabras.push(palabra[0].toUpperCase() + palabra.substring(1))
+    }
+    
+    return palabras.join(" ")
+ }
 
   //------------------------------------------------------ FORMULARIO -----------------------------------
 
@@ -207,7 +222,7 @@ export class CompraComponent implements OnInit {
       this.datosCliente.cedula = this.formCliente.get('cedula')?.value;
       this.datosCliente.celular = this.formCliente.get('celular')?.value;
       if(this.envio){
-        this.datosCliente.ciudad = this.formEnvio.get('ciudad')?.value;
+        this.datosCliente.ciudad = this.capitalizada(this.formEnvio.get('ciudad')?.value);
         this.datosCliente.direccion = this.formEnvio.get('direccion')?.value;
       }
       else{
