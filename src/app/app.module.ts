@@ -42,8 +42,7 @@ import { VerlibroComponent } from './pages/verlibro/verlibro.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
-    
+    ReactiveFormsModule,    
   ],
   providers: [],
   bootstrap: [AppComponent]

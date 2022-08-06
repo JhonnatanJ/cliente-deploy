@@ -12,3 +12,76 @@ button.btn.pasos{
 button.btn.pasos:hover{
     background-color:var(--on-hover);
 }
+
+div.input label{
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+div.input input{
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    border-radius: 0.3rem;
+    border: 2px solid var(--bordeinput);
+}
+
+
+div.input div{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+div img.imagen{
+    padding-left: 10rem;
+    padding-right: 10rem;
+    height: auto;
+    width: 100%;
+    max-width: 40rem;
+    min-width: 1rem;
+}
+
+p.info{
+    color: var(--textodark);
+}
+
+h4.total{
+    color: var(--primario);
+    background-color: var(--secundario);
+    border-radius: 30%;
+}
+
+img.img-resumen{
+    width: 4rem;
+}
+
+p.text-resumen{
+    font-weight: bold;
+}
+
+p.text-precio{
+    font-style: italic;
+}
+
+div.informacion{
+    background-color: var(--informacion);
+    border-radius: 15px;
+}
+
+/* ------------------------------------------------------- VALIDACIÓN DE FORMULARIOS */
+
+.ng-touched.ng-invalid:is(input,textarea),
+.ng-dirty.ng-invalid:is(input,textarea) {
+    outline: 2px solid var(--texto-error)
+}
+
+p.error-msg{
+    margin: 0;
+    padding-left: 3% ;
+    color:var(--texto-error)
+}
+
+p.error-msg-btn{
+    margin: 0;
+    padding-left: 3% ;
+    color:var(--primario);
+}

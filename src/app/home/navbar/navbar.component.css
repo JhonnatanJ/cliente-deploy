@@ -17,5 +17,6 @@ nav{
 nav a{
     text-decoration: none;
     color: var(--primario);
-    font-size: calc(0.4rem + 0.8vw);
+    /* font-size: calc(0.4rem + 0.8vw); */
+    font-size: 1rem;
 }

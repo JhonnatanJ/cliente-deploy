@@ -1,9 +1,9 @@
 <h1 class="text-center">CARRITO DE COMPRAS</h1>
-<div
-  *ngIf="this.libros.length > 0; else vacio"
-  class="table-responsive-md m-4 p-4"
->
-  <div *ngIf="this.paso1Completo == false; else paso2">
+<div *ngIf="this.carrito; else vacio">
+  <div
+    *ngIf="this.paso1Completo == false; else paso2"
+    class="table-responsive-md m-2 p-4"
+  >
     <h2 class="text-center">LISTA DE LIBROS</h2>
     <table class="table table-hover align-middle">
       <thead class="table-light">
@@ -18,13 +18,19 @@
       <tbody>
         <tr *ngFor="let libro of libros; let indice = index">
           <td>
-            <img
-              src="/../assets/books/{{ libro.isbn }}.jpg"
-              alt="portada"
-              width="10%"
-              class="img-fluid img-thumbnile me-3"
-            />
-            <strong>{{ libro.titulo }}</strong> de {{ libro.autores[0].nombre }}
+            <div class="d-flex flex-row flex-wrap justify-content-start align-items-center">
+              <div class="col-auto">
+                <img
+                  src="{{ libro.imagen.imagenUrl }}"
+                  alt="portada"
+                  class="img-thumbnile img-resumen me-3"
+                />
+              </div>
+              <div class="col text-start">
+                <strong>{{ libro.titulo }}</strong> de
+                {{ libro.autores[0].nombre }}
+              </div>
+            </div>
           </td>
           <td>
             <input
@@ -33,7 +39,6 @@
               min="1"
               max="{{ libro.stock }}"
               value="1"
-              onkeydown="return false"
               [ngModel]="cantidad[indice]"
               (ngModelChange)="recalcular($event, indice)"
               required
@@ -43,7 +48,7 @@
           <td>${{ this.subtotal[indice].toFixed(2) }}</td>
           <td>
             <button class="btn delete" (click)="borrar(indice)">
-              <img src="/../assets/icon_empty.png" alt="borrar" width="25rem" />
+              <img src="/../assets/icon_trash.png" alt="borrar" width="25rem" />
             </button>
           </td>
         </tr>
@@ -65,31 +70,427 @@
         <button class="btn pasos" disabled>Anterior</button>
       </div>
       <div class="col-6">
-        <button class="btn pasos" (click)="compraAceptada()">
-          Continuar Mi Compra
+        <button
+          [disabled]="!this.inputCantidad"
+          class="btn pasos"
+          (click)="compraAceptada()"
+        >
+          Continuar Compra
         </button>
+        <p *ngIf="!this.inputCantidad" class="error-msg">
+          *Cantidad de libro no permitida
+        </p>
       </div>
     </div>
   </div>
-
-  <ng-template #paso2>
-    <div *ngIf="paso1Completo == true && paso2Completo == false"></div>
-    <h2 class="text-center">DATOS DE CLIENTE</h2>
-    <div class="d-flex flex-row flex-wrap text-center">
-        <div class="col-6">
-          <button class="btn pasos" (click)="mostrarLibros()">Lista de Libros</button>
-        </div>
-        <div class="col-6">
-          <button class="btn pasos" (click)="compraAceptada()">
-            Continuar Mi Compra
-          </button>
-        </div>
-      </div>
-  </ng-template>
-  
-
 </div>
 
+<!-- -------------------------------------------------------------------PASO 2 FORMULARIO DE DATOS-->
+<ng-template #paso2>
+  <div *ngIf="paso1Completo == true && paso2Completo == false"></div>
+  <div class="d-flex flex-column flex-wrap justify-content-center m-4 px-5">
+    <h2 class="text-center mt-2 mb-0">DATOS DE CLIENTE</h2>
+    <br />
+    <form class="m-1" [formGroup]="formCliente">
+      <div class="row container-fluid input">
+        <div class="col-12 col-sm-6">
+          <label for="nombre" class="form-label">Nombres</label><br />
+          <input
+            formControlName="nombres"
+            type="text"
+            name="name"
+            class="form-control"
+            placeholder="Nombres"
+            [ngClass]="{
+              'is-invalid': nombresControl.invalid && nombresControl.touched
+            }"
+          />
+          <div
+            *ngIf="
+              nombresControl.invalid &&
+              (nombresControl.touched || nombresControl.dirty)
+            "
+            class="errors-container"
+          >
+            <p class="error-msg" *ngIf="nombresControl.hasError('required')">
+              *Campo vacío
+            </p>
+            <p class="error-msg" *ngIf="nombresControl.hasError('pattern')">
+              *Solo se permiten letras
+            </p>
+            <p class="error-msg" *ngIf="nombresControl.hasError('pattern')">
+              *Limite de texto superado
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <label for="apellidos" class="form-label">Apellidos</label><br />
+          <input
+            formControlName="apellidos"
+            type="text"
+            class="form-control"
+            name="lastname"
+            placeholder="Apellidos"
+            [ngClass]="{
+              'is-invalid': apellidosControl.invalid && apellidosControl.touched
+            }"
+          />
+          <div
+            *ngIf="
+              apellidosControl.invalid &&
+              (apellidosControl.touched || apellidosControl.dirty)
+            "
+            class="errors-container"
+          >
+            <p class="error-msg" *ngIf="apellidosControl.hasError('required')">
+              *Campo vacío
+            </p>
+            <p class="error-msg" *ngIf="apellidosControl.hasError('pattern')">
+              *Solo se permiten letras
+            </p>
+            <p class="error-msg" *ngIf="apellidosControl.hasError('maxlength')">
+              *Limite de texto superado
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row container-fluid input">
+        <div class="col-12 col-sm-6">
+          <label for="nombre" class="form-label">Cédula</label><br />
+          <input
+            formControlName="cedula"
+            type="text"
+            name="id"
+            class="form-control"
+            autocomplete="off"
+            placeholder="Cedula sin guión (-)"
+            [ngClass]="{
+              'is-invalid': cedulaControl.invalid && cedulaControl.touched
+            }"
+          />
+          <div
+            *ngIf="
+              cedulaControl.invalid &&
+              (cedulaControl.touched || cedulaControl.dirty)
+            "
+            class="errors-container"
+          >
+            <p class="error-msg" *ngIf="cedulaControl.hasError('required')">
+              *Campo vacío
+            </p>
+            <p class="error-msg" *ngIf="cedulaControl.hasError('pattern')">
+              *Solo se permiten números
+            </p>
+            <p class="error-msg" *ngIf="cedulaControl.hasError('minlength')">
+              *Solo se permiten 10 números
+            </p>
+            <p class="error-msg" *ngIf="cedulaControl.hasError('maxlength')">
+              *Solo se permiten 10 números
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <label for="apellidos" class="form-label">Celular</label><br />
+          <input
+            formControlName="celular"
+            type="text"
+            class="form-control"
+            name="phone"
+            placeholder="Celular de contacto"
+            [ngClass]="{
+              'is-invalid': celularControl.invalid && celularControl.touched
+            }"
+          />
+          <div
+            *ngIf="
+              celularControl.invalid &&
+              (celularControl.touched || celularControl.dirty)
+            "
+            class="errors-container"
+          >
+            <p class="error-msg" *ngIf="celularControl.hasError('required')">
+              *Campo vacío
+            </p>
+            <p class="error-msg" *ngIf="celularControl.hasError('pattern')">
+              *Solo se permiten números
+            </p>
+            <p class="error-msg" *ngIf="celularControl.hasError('minlength')">
+              *Solo se permiten 10 números
+            </p>
+            <p class="error-msg" *ngIf="celularControl.hasError('maxlength')">
+              *Solo se permiten 10 números
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="!this.envio"
+        class="row my-3 container-fluid justify-content-center text-center"
+      >
+        <h4 class="total">Total de compra = ${{ this.total.toFixed(2) }}</h4>
+      </div>
+      <div *ngIf="!this.envio; else sinEnvio" class="m-2 text-center">
+        <button class="btn pasos" (click)="agregarEnvio()">
+          Agregar Datos de Envío
+        </button>
+      </div>
+      <ng-template #sinEnvio>
+        <div class="m-2 text-center">
+          <button class="btn pasos" (click)="quitarEnvio()">
+            Compra Sin Envío
+          </button>
+        </div>
+      </ng-template>
+
+      <div *ngIf="envio">
+        <h2 class="text-center mt-4">DATOS DE ENVÍO</h2>
+
+        <div class="row container-fluid justify-content-center input">
+          <form [formGroup]="formEnvio">
+            <div class="row container-fluid input">
+              <div class="col-12 col-sm-6">
+                <label for="ciudad" class="form-label">Ciudad</label><br />
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="ciudad"
+                  name="city"
+                  placeholder="Ciudad"
+                  (change)="this.calcularEnvio()"
+                />
+                <div
+                  *ngIf="
+                    ciudadControl.invalid &&
+                    (ciudadControl.touched || ciudadControl.dirty)
+                  "
+                  class="errors-container"
+                >
+                  <p
+                    class="error-msg"
+                    *ngIf="ciudadControl.hasError('required')"
+                  >
+                    *Campo vacío
+                  </p>
+                  <p
+                    class="error-msg"
+                    *ngIf="ciudadControl.hasError('pattern')"
+                  >
+                    *Solo se permiten letras
+                  </p>
+                  <p
+                    class="error-msg"
+                    *ngIf="ciudadControl.hasError('maxlength')"
+                  >
+                    *Limite de texto superado
+                  </p>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <label for="direccion" class="form-label">Dirección</label
+                ><br />
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="direccion"
+                  name="address"
+                  id=""
+                  placeholder="Dirección"
+                />
+                <div
+                  *ngIf="
+                    direccionControl.invalid &&
+                    (direccionControl.touched || direccionControl.dirty)
+                  "
+                  class="errors-container"
+                >
+                  <p
+                    class="error-msg"
+                    *ngIf="direccionControl.hasError('required')"
+                  >
+                    *Campo vacío
+                  </p>
+                  <p
+                    class="error-msg"
+                    *ngIf="direccionControl.hasError('maxlength')"
+                  >
+                    *Limite de texto superado
+                  </p>
+                </div>
+                <p class="info px-3 m-0">
+                  *En caso de que el envío sea a una oficina de Servientrega,
+                  colocar la dirección de la misma.
+                </p>
+              </div>
+            </div>
+            <div
+              class="row my-5 container-fluid justify-content-center text-center"
+            >
+              <h4 class="total">
+                Total de compra + Envío = ${{ this.totalEnvio.toFixed(2) }}
+              </h4>
+            </div>
+          </form>
+        </div>
+      </div>
+    </form>
+
+    <div class="row w-100 text-center">
+      <div class="col-6">
+        <button class="btn pasos" (click)="mostrarLibros()">
+          Lista de Libros
+        </button>
+      </div>
+      <div class="col-6">
+        <button
+          class="btn pasos"
+          (click)="onSubmit()"
+          [disabled]="this.formCliente.invalid || this.formEnvio.invalid"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Continuar Compra
+        </button>
+        <div
+          *ngIf="this.formCliente.invalid || this.formEnvio.invalid"
+          class="errors-container"
+        >
+          <p class="error-msg-btn">*Ingrese todos los campos solicitados</p>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">
+                Resumen de Compra
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <h5 class="text-center">DATOS DE CLIENTE</h5>
+                  <hr />
+                  <div class="row mb-4">
+                    <div class="col-auto">
+                      <p class="text-start mb-1">
+                        <strong>Nombre: </strong>{{ this.datosCliente.nombres }}
+                        {{ this.datosCliente.apellidos }}
+                      </p>
+                      <p class="text-start mb-1">
+                        <strong>Cédula: </strong>{{ this.datosCliente.cedula }}
+                      </p>
+                      <p class="text-start mb-1">
+                        <strong>Celular: </strong
+                        >{{ this.datosCliente.celular }}
+                      </p>
+                      <p class="text-start mb-1">
+                        <strong>Ciudad: </strong>{{ this.datosCliente.ciudad }}
+                      </p>
+                      <p class="text-start mb-1">
+                        <strong>Dirección: </strong
+                        >{{ this.datosCliente.direccion }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <h5 class="text-center">LISTA DE LIBROS</h5>
+                  <hr />
+                </div>
+                <div *ngFor="let libro of libros; index as i" class="row mb-4">
+                  <div class="col-3">
+                    <img
+                      src="{{ libro.imagen.imagenUrl }}"
+                      alt="portada"
+                      class="img-thumbnile img-resumen"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <p class="text-resumen m-0">{{ libro.titulo }}</p>
+                    <p class="text-start m-0">{{ libro.autores[0].nombre }}</p>
+                    <p class="text-start m-0">
+                      Cantidad: {{ this.cantidad[i] }}
+                    </p>
+                    <p class="text-start m-0 text-precio">
+                      ${{
+                        (libro.precioUnitario * this.cantidad[i]).toFixed(2)
+                      }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <h5 class="text-center">TOTAL</h5>
+                  <hr />
+                </div>
+                <div class="row mb-4">
+                  <h5 *ngIf="this.envio; else noEnvio" class="text-center">
+                    Total de compra + Envío = ${{ this.totalEnvio.toFixed(2) }}
+                  </h5>
+                  <ng-template #noEnvio>
+                    <h5 class="text-center">
+                      Total de compra= ${{ this.total.toFixed(2) }}
+                    </h5>
+                  </ng-template>
+                </div>
+                <div class="row informacion">
+                  <h5 class="text-center">INFORMACIÓN DE COMPRA</h5>
+                  <hr />
+                  <p>
+                    Al finaliza la compra será redirigido al servicio de
+                    mensajería Whatsapp, en el cual se envirán los datos de su
+                    compra mediante un mensaje, y se le comunicará el proceso de
+                    pago. <br /><strong>!GRACIAS POR SU COMPRA¡</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                (click)="enviarDatos()"
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Finalizar Compra
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
 <ng-template #vacio>
-  <h1>Carrito Vacío</h1>
+  <div
+    class="d-flex flex-column flex-wrap justify-content-center align-items-center"
+  >
+    <h1>Carrito Vacío</h1>
+    <img
+      src="/../assets/icon_empty2.png"
+      alt="carrito vacio"
+      class="imagen m-5"
+    />
+  </div>
 </ng-template>

@@ -1,64 +1,73 @@
 export interface Libro {
     content:          Content[];
     pageable:         Pageable;
-    totalPages:       number;
-    totalElements:    number;
     last:             boolean;
+    totalElements:    number;
+    totalPages:       number;
     number:           number;
     size:             number;
     sort:             Sort;
-    numberOfElements: number;
     first:            boolean;
+    numberOfElements: number;
     empty:            boolean;
 }
 
 export interface Content {
+    titulo:         string;
+    descripcion:    string;
+    stock:          number;
+    precioUnitario: number;
     fechaRegistro:  Date;
     autores:        Autore[];
     generos:        Genero[];
     editoriales:    Editoriale[];
     cuenta:         Cuenta;
+    imagen:         Imagen;
     isbn:           string;
-    precioUnitario: number;
-    stock:          number;
-    descripcion:    string;
-    titulo:         string;
 }
 
 export interface Autore {
-    nombre:  string;
     idAutor: number;
+    nombre:  string;
 }
 
 export interface Cuenta {
-    usuario:       Usuario;
-    rol:           Rol;
-    fechaCreacion: Date;
     idCuenta:      number;
-    contrasena:    string;
     email:         string;
+    contrasena:    string;
+    enabled:       boolean;
+    fechaCreacion: Date;
+    usuario:       Usuario;
+    roles:         Role[];
 }
 
-export interface Rol {
-    nombre: string;
+export interface Role {
     idRol:  number;
+    nombre: string;
 }
 
 export interface Usuario {
     ci:        string;
-    telefono:  string;
-    apellidos: string;
     nombres:   string;
+    apellidos: string;
+    telefono:  string;
 }
 
 export interface Editoriale {
-    nombre:      string;
     idEditorial: number;
+    nombre:      string;
 }
 
 export interface Genero {
-    nombre:   string;
     idGenero: number;
+    nombre:   string;
+}
+
+export interface Imagen {
+    id:        number;
+    nombre:    string;
+    imagenUrl: string;
+    imagenId:  string;
 }
 
 export interface Pageable {
@@ -66,12 +75,21 @@ export interface Pageable {
     offset:     number;
     pageSize:   number;
     pageNumber: number;
-    unpaged:    boolean;
     paged:      boolean;
+    unpaged:    boolean;
 }
 
 export interface Sort {
     empty:    boolean;
     sorted:   boolean;
     unsorted: boolean;
+}
+
+export interface ClienteVenta{
+    nombres: string;
+    apellidos: string;
+    cedula: string;
+    celular: string;
+    ciudad: string;
+    direccion: string;
 }
