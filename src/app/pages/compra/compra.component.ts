@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LibroService } from '../../services/libro.service';
 import { ClienteVenta, Content } from '../../interfaces/libro.interface';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { empty } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-compra',
@@ -39,7 +39,7 @@ export class CompraComponent implements OnInit {
   formEnvio = new FormGroup({});
 
   constructor(
-    private fb: FormBuilder,
+    private router:Router,
     private libroService: LibroService,
   ) {  }
 
@@ -129,7 +129,15 @@ export class CompraComponent implements OnInit {
        mensaje += "\t"+"$$$   TOTAL: $" + this.total.toFixed(2);
     }   
     let urlMensaje = encodeURIComponent(mensaje);
-    let url = 'https://wa.me/593985318085?text='+urlMensaje;
+        let url = 'https://wa.me/593985318085?text='+urlMensaje;
+    this.listaCompra = []; 
+    this.libros = [];
+    this.cantidad = [];
+    this.subtotal = [];
+    this.total = 0;
+    this.totalEnvio = 0;
+    sessionStorage.clear();
+    this.router.navigate(['']);    
     window.open(url, '_blank');
   }
 
@@ -233,6 +241,4 @@ export class CompraComponent implements OnInit {
     }
     
   }
-
-
 }
