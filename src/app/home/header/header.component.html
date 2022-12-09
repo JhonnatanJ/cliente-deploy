@@ -14,15 +14,36 @@
             type="text"
             name="termino"
             class="form-control"
+            (input)="teclaPresionada()"
             [(ngModel)]="termino"
             placeholder="Busca aquí..."
           />
         </form>
       </div>
     </div>
+    <div *ngIf="this.libros.length > 0" class="card card-libros">
+      <div class="card-body content-fluid ">
+        <div class=""></div>
+          <div *ngFor="let libro of libros" class="d-flex mb-1 justify-content-start align-items-center row">
+            <div class="col-1">
+              <a href="/libro/{{this.libro.isbn}}">
+                <img src="{{libro.imagen.imagenUrl}}" alt="portada" class="img-fluid">
+              </a>              
+            </div>
+            <div class="col-auto">
+              <p><strong>{{libro.titulo}} </strong>{{libro.autores[0].nombre}}</p>
+            </div>            
+        </div>
+      </div>
+    </div>
 
-    <div *ngIf="hayError" class="alert alert-danger" role="alert">
-      No se encontró el libro {{ termino }}
+
+    <div *ngIf="this.hayError" class="alert p-2 absolute card-error m-0" role="alert">
+      <div class="content-fluid d-flex flex-row flex-wrap justify-content-center align-items-center">
+        <img src="../assets/icon_search-book.png" alt="buscar libro" class="buscar">
+        <p class="texto-error">No se encontró el libro: {{ termino }}</p> 
+      </div>
+        
     </div>
   </div>
 

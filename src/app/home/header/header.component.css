@@ -20,3 +20,26 @@ img.carrito{
     width: auto;
     height: 2rem;
 }
+
+div.card-error{
+    background-color:var(--on-hover);
+    height: 4rem;
+    color: var(--textoligth);
+    font-weight: bold;
+}
+
+img.buscar{
+    width: 3rem;
+}
+
+p.texto-error{
+    margin-bottom: 0%;
+    margin-left: 2rem;
+    font-size: 1.3rem;
+}
+
+div.card-libros{
+    background-color:var(--on-hover);
+    color: var(--textoligth);
+    font-weight: bold;
+}

@@ -15,12 +15,9 @@ export class LibroService {
 
   constructor(private http: HttpClient) { }
 
-  buscarLibro( termino: string ): Observable<Libro[]> {
-
+  buscarLibro( termino: string ): Observable<Content[]> {
     const url = `${this.apiLibrosUrl}/nombre/${termino}`;
-
-    return this.http.get<Libro[]>(url);
-
+    return this.http.get<Content[]>(url);
   }
   // ---------------------------------------------- VER LIBRO
   buscarLibroIsbn(isbn: string): Observable<Content>{

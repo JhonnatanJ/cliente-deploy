@@ -1,5 +1,6 @@
 nav{
     --primario: #0065BD;
+    background-color: white;
     padding-left: 15%;
     padding-right: 15%;
     /* border-bottom: 1px solid var(--primario);     */
