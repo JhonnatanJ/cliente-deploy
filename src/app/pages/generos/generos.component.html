@@ -18,6 +18,7 @@
   <hr>
   <h3 class="text-center">{{ genero | uppercase }}</h3>
   <app-bookbox [libros]="libros"></app-bookbox>
+  <!-- CAMBIAR PÁGINA -->
   <nav>
     <ul *ngIf="libros.content != null" class="pagination justify-content-center">
         <li *ngIf="pagina==0; else anterior " class="page-item disabled">
@@ -52,7 +53,7 @@
             </li>
         </ng-template>
     </ul>
-</nav>
+  </nav>
 </div>
 
 <!-- ---------------------------------------------------------------------------------------------- ERROR -->

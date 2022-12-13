@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import { LibroService } from 'src/app/services/libro.service';
-import { Libro, Genero, Content } from '../../interfaces/libro.interface';
 import { CompraService } from '../../services/compra.service';
 
 @Component({
@@ -12,8 +11,6 @@ import { CompraService } from '../../services/compra.service';
 export class HeaderComponent implements OnInit {
 
   termino: string = '';
-  hayError: boolean = false;
-  libros: Content[] = [];
 
   debouncer: Subject<string> = new Subject();
 
@@ -29,32 +26,12 @@ export class HeaderComponent implements OnInit {
         if(valor.length > 0){
           this.buscar();
         }
-        else{
-          this.hayError = false;
-          this.libros = [];
-        }
-      })
+      }
+      )
   }
 
   buscar(){  
-    console.log('desde buscar ' + this.termino) 
-    if(this.termino.length>=3){
-      this.libroService.buscarLibro(this.termino)
-        .subscribe((libros) => {
-          this.libros = libros;  
-          this.hayError = false;
-          if(this.libros.length < 1 && this.termino != ''){
-            this.hayError = true;
-            this.libros = [];
-          }     
-        }, (err) =>{
-          this.hayError = true;
-            this.libros = [];
-        });
-        
-      console.log(this.libros);
-      console.log(this.hayError);
-    }
+      this.libroService.busqueda$.emit(this.termino);
   }
 
   teclaPresionada(){

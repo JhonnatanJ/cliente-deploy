@@ -7,6 +7,7 @@ import { NovedadesComponent } from './pages/novedades/novedades.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { EmpresaComponent } from './pages/empresa/empresa.component';
 import { VerlibroComponent } from './pages/verlibro/verlibro.component';
+import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 
 const routes: Routes = [
     {
@@ -19,8 +20,8 @@ const routes: Routes = [
         component: CompraComponent
     },
     {
-        path: 'generos',
-        component: GenerosComponent
+        path: 'busqueda',
+        component: BusquedaComponent
     },
     {
         path: 'novedades',

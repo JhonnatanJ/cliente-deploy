@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Genero, Libro, Content } from '../interfaces/libro.interface';
 
@@ -12,12 +12,26 @@ export class LibroService {
 
   private apiGenerosUrl = 'http://localhost:8088/geolib/generos';
   
+  busqueda$ = new EventEmitter<string>();
 
   constructor(private http: HttpClient) { }
+
+  //------------------------------------------------ BUSCAR LIBRO
 
   buscarLibro( termino: string ): Observable<Content[]> {
     const url = `${this.apiLibrosUrl}/nombre/${termino}`;
     return this.http.get<Content[]>(url);
+  }
+
+  buscarLibroPaged(pagina:number): Observable<Libro> {
+    const url= `${this.apiLibrosUrl}/paged?page=${pagina}&size=8&sort=titulo,desc`;
+    return this.http.get<Libro>(url);
+  }
+
+  buscarLibrosPorTitulo(titulo:string, pagina:number): Observable<Libro> {
+    const url = `${this.apiLibrosUrl}/paged/titulo/${titulo}?page=${pagina}&size=8`;
+    console.log('servicio' +titulo+pagina+ this.http.get<Libro>(url));
+    return this.http.get<Libro>(url);
   }
   // ---------------------------------------------- VER LIBRO
   buscarLibroIsbn(isbn: string): Observable<Content>{
