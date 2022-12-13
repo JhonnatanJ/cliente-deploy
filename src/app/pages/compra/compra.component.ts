@@ -3,6 +3,7 @@ import { LibroService } from '../../services/libro.service';
 import { ClienteVenta, Content } from '../../interfaces/libro.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router';
+import { Validaciones } from 'src/app/utils/Validaciones';
 
 @Component({
   selector: 'app-compra',
@@ -199,7 +200,7 @@ export class CompraComponent implements OnInit {
     this.formCliente = new FormGroup({
       nombres: new FormControl('',[Validators.required, Validators.maxLength(35), Validators.pattern("[a-zA-Z' ']+")]),
       apellidos: new FormControl('', [Validators.required, Validators.maxLength(35), Validators.pattern("[a-zA-Z' ']+")]),
-      cedula: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[z0-9]+")]),
+      cedula: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[z0-9]+"), Validaciones.cedulaValida]),
       celular: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[z0-9]+")]),
     }) 
   }  
