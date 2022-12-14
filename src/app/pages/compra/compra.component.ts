@@ -4,6 +4,9 @@ import { ClienteVenta, Content } from '../../interfaces/libro.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router';
 import { Validaciones } from 'src/app/utils/Validaciones';
+import { Reserva, Libro, DetalleReserva } from '../../interfaces/reserva.interface';
+import { CompraService } from '../../services/compra.service';
+import { switchAll } from 'rxjs';
 
 @Component({
   selector: 'app-compra',
@@ -38,10 +41,11 @@ export class CompraComponent implements OnInit {
   datos: string[] = [];
   formCliente = new FormGroup({});
   formEnvio = new FormGroup({});
-
+  
   constructor(
     private router:Router,
     private libroService: LibroService,
+    private compraService: CompraService,
   ) {  }
 
   ngOnInit(): void {  
@@ -112,6 +116,20 @@ export class CompraComponent implements OnInit {
   }
 
   enviarDatos(){
+    //CREAR RESERVA PARA ENVÍO A BD
+    //datos de reserva
+    let reserva: Reserva = {
+      abono:0,
+      cuenta:{idCuenta:1},
+      usuario:{
+        ci:this.datosCliente.cedula,
+        nombres:this.datosCliente.nombres,
+        apellidos:this.datosCliente.apellidos,
+        telefono:this.datosCliente.celular,
+      },
+      detalleReservas:[],
+    }
+        
     let mensaje: string = "";
     mensaje = "♢CLIENTE"+"\n" + "Nombre:" + this.datosCliente.nombres+" "+this.datosCliente.apellidos+ "\n"+ 
                     "Cedula:"+ this.datosCliente.cedula+ "\n"+ "Celular:"+ this.datosCliente.celular+ "\n\n"+
@@ -122,8 +140,18 @@ export class CompraComponent implements OnInit {
       let dato = "||| libro: " + libro.isbn + "\n" + "cantidad: " + this.cantidad[i]+ "\n" +"titulo: " + libro.titulo + "\n" + 
                   "subtotal: $" + (libro.precioUnitario*this.cantidad[i]).toFixed(2) + "\n\n";
       mensaje += dato;
+
+      //detalleReservas para envío a BD
+      let detalleReserva: DetalleReserva = {
+        cantidad:this.cantidad[i],
+        libro:libro,
+      }
+      reserva.detalleReservas.push(detalleReserva);
       i +=1;
     }
+    this.compraService.create(reserva).subscribe( resp =>{
+      alert("COMPRA REGISTRADA");
+    })
     if(this.envio){
       mensaje += "\t"+"$$$   TOTAL+ENVIO: $" + this.totalEnvio.toFixed(2);
     }else{
