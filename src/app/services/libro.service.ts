@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Genero, Libro, Content } from '../interfaces/libro.interface';
 
@@ -7,17 +7,31 @@ import { Genero, Libro, Content } from '../interfaces/libro.interface';
   providedIn: 'root'
 })
 export class LibroService {
+//http://localhost:8088
+  private apiLibrosUrl = 'https://api-geomundo.herokuapp.com/geolib/libros';
 
-  private apiLibrosUrl = 'http://localhost:8088/geolib/libros';
-
-  private apiGenerosUrl = 'http://localhost:8088/geolib/generos';
+  private apiGenerosUrl = 'https://api-geomundo.herokuapp.com//generos';
   
+  busqueda$ = new EventEmitter<string>();
 
   constructor(private http: HttpClient) { }
+
+  //------------------------------------------------ BUSCAR LIBRO
 
   buscarLibro( termino: string ): Observable<Content[]> {
     const url = `${this.apiLibrosUrl}/nombre/${termino}`;
     return this.http.get<Content[]>(url);
+  }
+
+  buscarLibroPaged(pagina:number): Observable<Libro> {
+    const url= `${this.apiLibrosUrl}/paged?page=${pagina}&size=8&sort=titulo,desc`;
+    return this.http.get<Libro>(url);
+  }
+
+  buscarLibrosPorTitulo(titulo:string, pagina:number): Observable<Libro> {
+    const url = `${this.apiLibrosUrl}/paged/titulo/${titulo}?page=${pagina}&size=8`;
+    console.log('servicio' +titulo+pagina+ this.http.get<Libro>(url));
+    return this.http.get<Libro>(url);
   }
   // ---------------------------------------------- VER LIBRO
   buscarLibroIsbn(isbn: string): Observable<Content>{
@@ -27,17 +41,17 @@ export class LibroService {
 
   //----------------------------------------------- NOVEDADES
   buscarNovedades(): Observable<Libro> {
-    const url = `${this.apiLibrosUrl}/paged?page=0&size=8&sort=fechaRegistro,desc`;
+    const url = `${this.apiLibrosUrl}/paged?page=0&size=8&sort=fechaStock,desc`;
     return this.http.get<Libro>(url);
   }
 
   buscarNovedadesPaged(pagina:number): Observable<Libro> {
-    const url= `${this.apiLibrosUrl}/paged?page=${pagina}&size=8&sort=fechaRegistro,desc`;
+    const url= `${this.apiLibrosUrl}/paged?page=${pagina}&size=8&sort=fechaStock,desc`;
     return this.http.get<Libro>(url);
   }
 //-------------------------------------------------- RECOMENDADOS
   buscarRecomendados(): Observable<Libro> {
-    const url = `${this.apiLibrosUrl}/paged?page=0&size=8&sort=fechaRegistro,asc`;
+    const url = `${this.apiLibrosUrl}/paged?page=0&size=8&sort=fechaStock,asc`;
     return this.http.get<Libro>(url);
   }
 

@@ -17,7 +17,7 @@ export interface Content {
     descripcion:    string;
     stock:          number;
     precioUnitario: number;
-    fechaRegistro:  Date;
+    fechaStock:  Date;
     autores:        Autore[];
     generos:        Genero[];
     editoriales:    Editoriale[];

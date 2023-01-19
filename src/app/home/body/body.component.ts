@@ -17,7 +17,7 @@ export class BodyComponent implements OnInit {
 
   constructor( private libroService: LibroService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.buscarNovedades();
     this.buscarRecomendados();
   }

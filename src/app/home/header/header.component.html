@@ -10,7 +10,9 @@
     <div class="row">
       <div class="col">
         <form (ngSubmit)="buscar()" autocomplete="off">
-          <input            
+          <input
+            routerLink="busqueda"
+            routerLinkActive="active"     
             type="text"
             name="termino"
             class="form-control"
@@ -21,7 +23,7 @@
         </form>
       </div>
     </div>
-    <div *ngIf="this.libros.length > 0" class="card card-libros">
+    <!-- <div *ngIf="this.libros.length > 0" class="card card-libros">
       <div class="card-body content-fluid ">
         <div class=""></div>
           <div *ngFor="let libro of libros" class="d-flex mb-1 justify-content-start align-items-center row">
@@ -44,7 +46,7 @@
         <p class="texto-error">No se encontró el libro: {{ termino }}</p> 
       </div>
         
-    </div>
+    </div> -->
   </div>
 
    <!-- ----------------------------------------------- RESULTADOS DE BUSQUEDA -->

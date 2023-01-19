@@ -187,6 +187,9 @@
             <p class="error-msg" *ngIf="cedulaControl.hasError('maxlength')">
               *Solo se permiten 10 números
             </p>
+            <p class="error-msg" *ngIf="cedulaControl.hasError('cedulaValida')">
+              *Número de cédula incorrecto
+            </p>
           </div>
         </div>
         <div class="col-12 col-sm-6">
