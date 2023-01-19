@@ -6,7 +6,8 @@ import {Router} from '@angular/router';
 import { Validaciones } from 'src/app/utils/Validaciones';
 import { Reserva, Libro, DetalleReserva } from '../../interfaces/reserva.interface';
 import { CompraService } from '../../services/compra.service';
-import { switchAll } from 'rxjs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 
 @Component({
   selector: 'app-compra',
@@ -150,24 +151,28 @@ export class CompraComponent implements OnInit {
       i +=1;
     }
     this.compraService.create(reserva).subscribe( resp =>{
-      alert("COMPRA REGISTRADA");
+      Notify.info('COMPRA REGISTRADA',{timeout:10000});
+      if(this.envio){
+        mensaje += "\t"+"$$$   TOTAL+ENVIO: $" + this.totalEnvio.toFixed(2);
+      }else{
+         mensaje += "\t"+"$$$   TOTAL: $" + this.total.toFixed(2);
+      }   
+      let urlMensaje = encodeURIComponent(mensaje);
+          let url = 'https://wa.me/593985318085?text='+urlMensaje;
+      this.listaCompra = []; 
+      this.libros = [];
+      this.cantidad = [];
+      this.subtotal = [];
+      this.total = 0;
+      this.totalEnvio = 0;
+      sessionStorage.clear();
+      this.router.navigate(['']);    
+      window.open(url, '_blank');
+    },
+    err =>{
+      Notify.failure('NO SE PUDO REGISTRAR COMPRA');
     })
-    if(this.envio){
-      mensaje += "\t"+"$$$   TOTAL+ENVIO: $" + this.totalEnvio.toFixed(2);
-    }else{
-       mensaje += "\t"+"$$$   TOTAL: $" + this.total.toFixed(2);
-    }   
-    let urlMensaje = encodeURIComponent(mensaje);
-        let url = 'https://wa.me/593985318085?text='+urlMensaje;
-    this.listaCompra = []; 
-    this.libros = [];
-    this.cantidad = [];
-    this.subtotal = [];
-    this.total = 0;
-    this.totalEnvio = 0;
-    sessionStorage.clear();
-    this.router.navigate(['']);    
-    window.open(url, '_blank');
+    
   }
 
   //-------------------------------------------------------- FUNCIONES PARA FORMULARIO - PASO 2

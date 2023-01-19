@@ -7,10 +7,10 @@ import { Genero, Libro, Content } from '../interfaces/libro.interface';
   providedIn: 'root'
 })
 export class LibroService {
+//http://localhost:8088
+  private apiLibrosUrl = 'https://api-geomundo.herokuapp.com/geolib/libros';
 
-  private apiLibrosUrl = 'http://localhost:8088/geolib/libros';
-
-  private apiGenerosUrl = 'http://localhost:8088/geolib/generos';
+  private apiGenerosUrl = 'https://api-geomundo.herokuapp.com//generos';
   
   busqueda$ = new EventEmitter<string>();
 
@@ -41,17 +41,17 @@ export class LibroService {
 
   //----------------------------------------------- NOVEDADES
   buscarNovedades(): Observable<Libro> {
-    const url = `${this.apiLibrosUrl}/paged?page=0&size=8&sort=fechaRegistro,desc`;
+    const url = `${this.apiLibrosUrl}/paged?page=0&size=8&sort=fechaStock,desc`;
     return this.http.get<Libro>(url);
   }
 
   buscarNovedadesPaged(pagina:number): Observable<Libro> {
-    const url= `${this.apiLibrosUrl}/paged?page=${pagina}&size=8&sort=fechaRegistro,desc`;
+    const url= `${this.apiLibrosUrl}/paged?page=${pagina}&size=8&sort=fechaStock,desc`;
     return this.http.get<Libro>(url);
   }
 //-------------------------------------------------- RECOMENDADOS
   buscarRecomendados(): Observable<Libro> {
-    const url = `${this.apiLibrosUrl}/paged?page=0&size=8&sort=fechaRegistro,asc`;
+    const url = `${this.apiLibrosUrl}/paged?page=0&size=8&sort=fechaStock,asc`;
     return this.http.get<Libro>(url);
   }
 

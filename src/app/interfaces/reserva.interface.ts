@@ -44,7 +44,7 @@ export interface Libro {
     descripcion?:    string;
     stock?:          number;
     precioUnitario?: number;
-    fechaRegistro?:  Date;
+    fechaStock?:  Date;
     autores?:        Autores[];
     generos?:        Generos[];
     editoriales?:    Editoriales[];
