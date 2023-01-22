@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 
 import { Reserva } from '../interfaces/reserva.interface';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CompraService {
 
   listaCompra!: string[];
 
-  private apiReservasUrl = 'http://localhost:8088/geolib/reservas';
+  //private apiReservasUrl = 'http://localhost:8088/geolib/reservas';
 
   constructor(private http:HttpClient) { 
 
@@ -44,6 +45,6 @@ export class CompraService {
 
   //============================================================ CREACIÓN DE RESERVA
   create(reserva:Reserva):Observable<Reserva>{
-    return this.http.post<Reserva>(this.apiReservasUrl,reserva);
+    return this.http.post<Reserva>(environment.apiReservasUrl,reserva);
    }
 }
