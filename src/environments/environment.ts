@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiLibrosUrl: 'http://localhost:8088/geolib/libros',
+  apiGenerosUrl: 'http://localhost:8088/geolib/generos',
+  apiReservasUrl: 'http://localhost:8088/geolib/reservas'
 };
 
 /*

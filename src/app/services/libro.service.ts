@@ -8,10 +8,8 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root'
 })
 export class LibroService {
-//http://localhost:8088
- 
-//  private apiLibrosUrl = 'https://api-geomundo.herokuapp.com/geolib/libros';
-
+//http://localhost:8088 
+//private apiLibrosUrl = 'https://api-geomundo.herokuapp.com/geolib/libros';
 //private apiGenerosUrl = 'https://api-geomundo.herokuapp.com//generos';
   
   busqueda$ = new EventEmitter<string>();
